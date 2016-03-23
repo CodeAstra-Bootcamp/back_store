@@ -26,9 +26,10 @@ def seed_customer(i)
   dot
 end
 
-def seed_product_cateogory(name)
-  ProductCategory.find_or_create_by(name: name)
+def seed_product_category(name)
+  pc = ProductCategory.find_or_create_by(name: name)
   dot
+  return pc
 end
 
 puts "# Seeding Customers"
@@ -37,8 +38,19 @@ puts "# Seeding Customers"
 end
 puts "  Done."
 
-puts "# Seeding Product Categories"
-["Mobiles", "Wearables", "Home Automation", "Tablets", "Laptops", "Computer Peripherals", "Mobile Accessories", "Headphones", "Tablet Accessories", "Computer Accessories", "Network Components", "Televisions", "Large Appliances", "Healthcare Appliances", "Small Appliances", "Kitchen Appliances"].each do |name|
-  seed_product_cateogory(name)
+puts "# Seeding Products"
+(1000 - Product.count).times do
+  product_name = ""
+  while(product_name.blank? || Product.where(name: product_name).any?)
+    product_category_name = Faker::Commerce.department(1)
+    product_name = Faker::Commerce.product_name
+    price = Faker::Commerce.price
+  end
+
+  pc = seed_product_category(product_category_name)
+  Product.find_or_create_by(name: product_name) do |product|
+    product.product_category = pc
+    product.price = price.to_i
+  end
 end
 puts "  Done."
