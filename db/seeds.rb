@@ -17,7 +17,11 @@ def seed_customer(i)
   Customer.find_or_create_by(email: "customer_#{i}@backstore.com") do |customer|
     customer.name = Faker::Name.name
     customer.phone = Faker::PhoneNumber.phone_number
-    customer.address = "#{Faker::Address.street_address}, #{Faker::Address.city}, #{Faker::Address.postcode}"
+    city = Faker::Address.city
+    pincode = Faker::Address.zip
+    customer.address = "#{Faker::Address.street_address}, #{city}, #{pincode}"
+    customer.city = city
+    customer.pincode = pincode
   end
   dot
 end

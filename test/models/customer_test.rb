@@ -9,6 +9,8 @@
 #  address    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  city       :string
+#  pincode    :string
 #
 
 require 'test_helper'
