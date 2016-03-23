@@ -26,8 +26,19 @@ def seed_customer(i)
   dot
 end
 
+def seed_product_cateogory(name)
+  ProductCategory.find_or_create_by(name: name)
+  dot
+end
+
 puts "# Seeding Customers"
 (1..100).each do |i|
   seed_customer(i)
+end
+puts "  Done."
+
+puts "# Seeding Product Categories"
+["Mobiles", "Wearables", "Home Automation", "Tablets", "Laptops", "Computer Peripherals", "Mobile Accessories", "Headphones", "Tablet Accessories", "Computer Accessories", "Network Components", "Televisions", "Large Appliances", "Healthcare Appliances", "Small Appliances", "Kitchen Appliances"].each do |name|
+  seed_product_cateogory(name)
 end
 puts "  Done."
